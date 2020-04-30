@@ -18,5 +18,5 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - black screen while typing
 
 ## 1.0.0 - 2020-04-30
-###Added
+### Added
 - Character counter status bar item
