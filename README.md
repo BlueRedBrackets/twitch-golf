@@ -1,6 +1,6 @@
 # Code Golf Extension for Visual Studio Code with Twitch Integration
 
-Let's face it. However great a game code golf is, it's live-streaming presence is sadly nonexistent. Could it be the lack of accessibility? Maybe it's the lack of viewer engagement. Perhaps, it's just plain boring.
+Let's face it. However great a game code golf is, its live-streaming presence is sadly nonexistent. Could it be the lack of accessibility? Maybe it's the lack of viewer engagement. Perhaps, it's just plain boring.
 
 Not anymore.
 
