@@ -9,13 +9,18 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 ### Code Golf
 - **timer**
 - ~~**character counter**~~
-    - needs more hair
-- Four! (make use of this somehow)
+    - ~~needs more hair~~
 ### Croud Control
 - letter inventory
 - typing test interrupt
 - disable keys
 - black screen while typing
+
+## 2.0.0 - 2020-05-06
+### Removed
+- Character counter status bar item
+### Added
+- Codelens character counter
 
 ## 1.0.0 - 2020-04-30
 ### Added

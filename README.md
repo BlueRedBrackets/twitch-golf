@@ -12,3 +12,4 @@ Introducing Twitch Golf, the VS Code extension for code golf enthusiasts.
 
 ## Features
 - An active editor character counter status bar item
+- A document character count codelens
