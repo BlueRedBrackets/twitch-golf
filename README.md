@@ -9,7 +9,3 @@ Introducing Twitch Golf, the VS Code extension for code golf enthusiasts.
 ## Quick start
 1. Install the Twitch Golf extension for VS Code
 2. Open up an editor, tee up, and let it rip!
-
-## Features
-- An active editor character counter status bar item
-- A document character count codelens
