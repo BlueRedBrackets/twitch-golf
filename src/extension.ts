@@ -10,6 +10,11 @@ let timerStartButton: vscode.StatusBarItem;
 let timerDisplay: vscode.StatusBarItem;
 
 function updateTimerDisplay() {
+	if (secondsLeft < 60) {
+		timerDisplay.color = "red";
+	} else {
+		timerDisplay.color = undefined;
+	}
 	const hours = Math.floor(secondsLeft / 60 / 60).toString().padStart(2, "0");
 	const minutes = Math.floor(secondsLeft / 60 % 60).toString().padStart(2, "0");
 	const seconds = Math.floor(secondsLeft % 60).toString().padStart(2, "0");
@@ -32,18 +37,18 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			}
 		});
+		timerDisplay = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
 		secondsLeft = Number(await input) * 60;
+		clearInterval(timer);
 		updateTimerDisplay();
 		timerDisplay.show();
-		clearInterval(timer);
 		timer = setInterval(() => {
 			secondsLeft--;
+			updateTimerDisplay();
 			if (secondsLeft === 0) {
-				timerDisplay.hide();
+				timerDisplay.dispose();
 				clearInterval(timer);
 				vscode.window.showInformationMessage("Game over!");
-			} else {
-				updateTimerDisplay();
 			}
 		}, 1000);
 	}));
@@ -54,8 +59,6 @@ export function activate(context: vscode.ExtensionContext) {
 	timerStartButton.text = "$(play)";
 	context.subscriptions.push(timerStartButton);
 	timerStartButton.show();
-
-	timerDisplay = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
 }
 
 // this method is called when your extension is deactivated

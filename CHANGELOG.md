@@ -8,7 +8,7 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - send message to chat
 ### Code Golf
 - ~~timer~~
-    - last lap font
+    - ~~last lap font~~
     - pause
     - add/remove time
     - restart
