@@ -21,6 +21,10 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - disable keys
 - black screen while typing
 
+## 0.0.1 - 2020-05-13
+### Added
+- Last lap timer font
+
 ## 0.0.1 - 2020-05-11
 ### Added
 - Timer
