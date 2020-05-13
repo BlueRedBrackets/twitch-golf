@@ -46,6 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 			secondsLeft--;
 			updateTimerDisplay();
 			if (secondsLeft === 0) {
+				timerDisplay.hide();
 				timerDisplay.dispose();
 				clearInterval(timer);
 				vscode.window.showInformationMessage("Game over!");
