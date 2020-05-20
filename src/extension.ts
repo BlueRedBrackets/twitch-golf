@@ -12,6 +12,8 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.languages.registerCodeLensProvider("*", new CharacterCountCodelensProvider())
 
 	const startTimerId = 'twitch-golf.startTimer';
+	const pauseTimerId = 'twitch-golf.pauseTimer';
+	const resumeTimerId = 'twitch-golf.resumeTimer';
 	context.subscriptions.push(vscode.commands.registerCommand(startTimerId, async () => {
 		const input = vscode.window.showInputBox({
 			prompt: "Type the number of minutes you want to set a timer for.",
@@ -22,8 +24,11 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			}
 		});
-		timer.startTimer(Number(await input) * 60)
+		const minutes = await input;
+		if (minutes) timer.startTimer(Number(minutes) * 60)
 	}));
+	context.subscriptions.push(vscode.commands.registerCommand(pauseTimerId, timer.pauseTimer))
+	context.subscriptions.push(vscode.commands.registerCommand(resumeTimerId, timer.resumeTimer))
 
 	timerStartButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
 	timerStartButton.command = startTimerId;

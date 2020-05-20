@@ -2,11 +2,14 @@ import * as vscode from 'vscode';
 
 let timerStatusBarItem: vscode.StatusBarItem;
 let secondsSetFor: number;
-let startTime: number;
+let startedAt: number;
+let pausedAt: number;
+let pauseRemainder: number;
 let timerUpdateTimeout: NodeJS.Timeout;
+let isRunning: boolean
 
 function updateTimer() {
-    const secondsLeft = Math.ceil(secondsSetFor - (Date.now() - startTime) / 1000);
+    const secondsLeft = Math.ceil(secondsSetFor - (Date.now() - startedAt) / 1000);
     const hours = Math.floor(secondsLeft / 60 / 60).toString().padStart(2, "0");
     const minutes = Math.floor(secondsLeft / 60 % 60).toString().padStart(2, "0");
     const seconds = Math.floor(secondsLeft % 60).toString().padStart(2, "0");
@@ -20,11 +23,31 @@ function updateTimer() {
 }
 
 export function startTimer(seconds: number) {
-    startTime = Date.now();
+    isRunning = true;
+    startedAt = Date.now();
     secondsSetFor = seconds;
     if (timerStatusBarItem) timerStatusBarItem.hide();
     timerStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
     updateTimer();
     timerStatusBarItem.show();
     timerUpdateTimeout = setInterval(updateTimer, 500);
+}
+
+export function pauseTimer() {
+    if (isRunning) {
+        isRunning = false;
+        pausedAt = Date.now();
+        pauseRemainder = (pausedAt - startedAt) % 1000
+        clearInterval(timerUpdateTimeout);
+    }
+}
+
+export function resumeTimer() {
+    if (!isRunning) {
+        isRunning = true;
+        startedAt += Date.now() - pausedAt;
+        updateTimer()
+        setTimeout(updateTimer, pauseRemainder)
+        timerUpdateTimeout = setInterval(updateTimer, 500);
+    }
 }

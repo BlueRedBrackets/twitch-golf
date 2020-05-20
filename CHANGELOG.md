@@ -9,7 +9,7 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 ### Code Golf
 - ~~timer~~
     - ~~last lap font~~
-    - pause
+    - ~~pause~~
     - add/remove time
     - restart
     - ~~improve accuracy~~
@@ -23,7 +23,8 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 
 ## 0.0.1 - 2020-05-19
 ### Added
-- Improved accuracty of timer
+- Improved accuracy of timer
+- Pause/resume
 
 ## 0.0.1 - 2020-05-13
 ### Added
