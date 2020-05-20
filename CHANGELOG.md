@@ -12,7 +12,7 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
     - pause
     - add/remove time
     - restart
-    - improve accuracy
+    - ~~improve accuracy~~
 - ~~character counter~~
     - ~~needs more hair~~
 ### Croud Control
@@ -20,6 +20,10 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - typing test interrupt
 - disable keys
 - black screen while typing
+
+## 0.0.1 - 2020-05-19
+### Added
+- Improved accuracty of timer
 
 ## 0.0.1 - 2020-05-13
 ### Added
