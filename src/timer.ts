@@ -6,7 +6,7 @@ let startedAt: number;
 let pausedAt: number;
 let pauseRemainder: number;
 let timerUpdateTimeout: NodeJS.Timeout;
-let isRunning: boolean
+let isRunning: boolean = false;
 
 function updateTimer() {
     const secondsLeft = Math.ceil(secondsSetFor - (Date.now() - startedAt) / 1000);
@@ -23,6 +23,7 @@ function updateTimer() {
 }
 
 export function startTimer(seconds: number) {
+    clearInterval(timerUpdateTimeout);
     isRunning = true;
     startedAt = Date.now();
     secondsSetFor = seconds;
@@ -34,15 +35,17 @@ export function startTimer(seconds: number) {
 }
 
 export function pauseTimer() {
+    console.log('pause', isRunning)
     if (isRunning) {
+        clearInterval(timerUpdateTimeout);
         isRunning = false;
         pausedAt = Date.now();
         pauseRemainder = (pausedAt - startedAt) % 1000
-        clearInterval(timerUpdateTimeout);
     }
 }
 
 export function resumeTimer() {
+    console.log('resume', isRunning)
     if (!isRunning) {
         isRunning = true;
         startedAt += Date.now() - pausedAt;
