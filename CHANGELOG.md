@@ -15,11 +15,17 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
     - ~~improve accuracy~~
 - ~~character counter~~
     - ~~needs more hair~~
+    - count each "code block", instead of the whole file
+    - don't count comments
 ### Croud Control
 - letter inventory
 - typing test interrupt
 - disable keys
 - black screen while typing
+
+## 0.0.1 - 2020-05-21
+### Fixed
+- Timer pause/resume bug
 
 ## 0.0.1 - 2020-05-19
 ### Added
