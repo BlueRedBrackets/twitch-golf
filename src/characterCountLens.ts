@@ -1,20 +1,29 @@
 import * as vscode from 'vscode';
 
+function createLens(lineNumber: number, characterCount: number): vscode.CodeLens {
+    const position = new vscode.Position(lineNumber, 0);
+    const lens = new vscode.CodeLens(new vscode.Range(position, position));
+    lens.command = {
+        title: `char count: ${characterCount.toLocaleString()}`,
+        command: ""
+    };
+    return lens
+}
+
 export class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
-    private characterCount: string = "0";
-
     public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
-        this.characterCount = document.getText().length.toLocaleString();
-
-        const zero = new vscode.Position(0, 0);
-        return [new vscode.CodeLens(new vscode.Range(zero, zero))];
-    }
-
-    public resolveCodeLens(codeLens: vscode.CodeLens, token: vscode.CancellationToken) {
-        codeLens.command = {
-            title: `char count: ${this.characterCount}`,
-            command: ""
-        };
-        return codeLens;
+        const lenses: vscode.CodeLens[] = [];
+        let blockCharacterCount: number = 0;
+        for (let i = document.lineCount - 1; i >= 0; i--) {
+            const line = document.lineAt(i);
+            if (!line.isEmptyOrWhitespace) blockCharacterCount += line.text.length + 1;
+            if (i == 0 && blockCharacterCount > 0) {
+                lenses.push(createLens(i, blockCharacterCount - 1));
+            } else if (line.isEmptyOrWhitespace && blockCharacterCount > 0) {
+                lenses.push(createLens(i + 1, blockCharacterCount - 1));
+                blockCharacterCount = 0;
+            }
+        }
+        return lenses;
     }
 }

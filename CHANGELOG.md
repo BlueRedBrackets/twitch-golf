@@ -15,7 +15,8 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
     - ~~improve accuracy~~
 - ~~character counter~~
     - ~~needs more hair~~
-    - count each "code block", instead of the whole file
+    - ~~count each "code block", instead of the whole file~~
+        - refactor this^ garbage
     - don't count comments
 ### Croud Control
 - letter inventory
@@ -24,6 +25,8 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - black screen while typing
 
 ## 0.0.1 - 2020-05-21
+### Updated
+- Character counter counts characters per code block instead of per file
 ### Fixed
 - Timer pause/resume bug
 
