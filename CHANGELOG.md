@@ -24,6 +24,13 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - disable keys
 - black screen while typing
 
+## 0.0.1 - 2020-05-26
+### Remove
+- Pause/resume countdown
+### Added
+- Cancel countdown
+- Add/remove seconds from countdown
+
 ## 0.0.1 - 2020-05-21
 ### Updated
 - Character counter counts characters per code block instead of per file
