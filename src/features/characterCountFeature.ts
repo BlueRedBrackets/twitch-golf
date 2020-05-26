@@ -1,6 +1,7 @@
+import { IFeature } from '../feature'
 import * as vscode from 'vscode';
 
-export class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
+class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
     private codeBlockRegex = new RegExp(/(?:[^\n]\n{0,2})+/, "g")
     public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
         const lenses: vscode.CodeLens[] = [];
@@ -16,5 +17,11 @@ export class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
             lenses.push(lens);
         }
         return lenses
+    }
+}
+
+export class CharacterCountFeature implements IFeature {
+    installOn(context: vscode.ExtensionContext): void {
+        vscode.languages.registerCodeLensProvider("*", new CharacterCountCodelensProvider())
     }
 }

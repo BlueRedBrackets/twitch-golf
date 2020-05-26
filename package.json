@@ -16,16 +16,20 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "twitch-golf.startTimer",
-				"title": "Twitch Golf: Start Timer"
+				"command": "twitch-golf.startCountdown",
+				"title": "Twitch Golf: Start Countdown"
 			},
 			{
-				"command": "twitch-golf.pauseTimer",
-				"title": "Twitch Golf: Pause Timer"
+				"command": "twitch-golf.cancelCountdown",
+				"title": "Twitch Golf: Cancel Countdown"
 			},
 			{
-				"command": "twitch-golf.resumeTimer",
-				"title": "Twitch Golf: Resume Timer"
+				"command": "twitch-golf.addSeconds",
+				"title": "Twitch Golf: Add Seconds"
+			},
+			{
+				"command": "twitch-golf.removeSeconds",
+				"title": "Twitch Golf: Remove Seconds"
 			}
 		]
 	},
