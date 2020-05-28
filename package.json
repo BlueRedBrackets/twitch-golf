@@ -3,7 +3,7 @@
 	"publisher": "BlueRedBrackets",
 	"displayName": "twitch-golf",
 	"description": "Provide an enchanced code golf on twitch streamer/viewer experience ",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
