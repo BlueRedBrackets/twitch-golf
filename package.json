@@ -1,6 +1,10 @@
 {
 	"name": "twitch-golf",
 	"publisher": "BlueRedBrackets",
+	"repository": {
+		"type": "git",
+		"url": "github:blueredbrackets/twitch-golf"
+	},
 	"displayName": "twitch-golf",
 	"description": "Provide an enchanced code golf on twitch streamer/viewer experience ",
 	"version": "1.0.0",
