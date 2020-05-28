@@ -1,5 +1,6 @@
 {
 	"name": "twitch-golf",
+	"publisher": "BlueRedBrackets",
 	"displayName": "twitch-golf",
 	"description": "Provide an enchanced code golf on twitch streamer/viewer experience ",
 	"version": "0.0.1",
