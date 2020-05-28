@@ -3,7 +3,7 @@
 	"publisher": "BlueRedBrackets",
 	"repository": {
 		"type": "git",
-		"url": "github:blueredbrackets/twitch-golf"
+		"url": "https://github.com/blueredbrackets/twitch-golf.git"
 	},
 	"displayName": "twitch-golf",
 	"description": "Provide an enchanced code golf on twitch streamer/viewer experience ",
