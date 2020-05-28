@@ -21,7 +21,25 @@ class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
 }
 
 export class CharacterCountFeature implements IFeature {
+    private lensProviders: { [id: string]: vscode.Disposable } = {};
+
     installOn(context: vscode.ExtensionContext): void {
-        vscode.languages.registerCodeLensProvider("*", new CharacterCountCodelensProvider())
+        vscode.commands.registerCommand("twitch-golf.enableCharacterCount", this.enableForFile.bind(this));
+        vscode.commands.registerCommand("twitch-golf.disableCharacterCount", this.disableForFile.bind(this));
+    }
+
+    enableForFile() {
+        let fileName = vscode.window.activeTextEditor?.document.fileName;
+        if (fileName !== undefined && this.lensProviders[fileName] === undefined) {
+            this.lensProviders[fileName] = vscode.languages.registerCodeLensProvider({ pattern: fileName }, new CharacterCountCodelensProvider());
+        }
+    }
+
+    disableForFile() {
+        const fileName = vscode.window.activeTextEditor?.document.fileName;
+        if (fileName !== undefined && this.lensProviders[fileName] !== undefined) {
+            this.lensProviders[fileName].dispose();
+            delete this.lensProviders[fileName];
+        }
     }
 }

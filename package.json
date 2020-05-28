@@ -20,6 +20,18 @@
 				"title": "Twitch Golf: Start Countdown"
 			},
 			{
+				"command": "twitch-golf.pauseCountdown",
+				"title": "Twitch Golf: Pause Countdown"
+			},
+			{
+				"command": "twitch-golf.resumeCountdown",
+				"title": "Twitch Golf: Resume Countdown"
+			},
+			{
+				"command": "twitch-golf.resetCountdown",
+				"title": "Twitch Golf: Reset Countdown"
+			},
+			{
 				"command": "twitch-golf.cancelCountdown",
 				"title": "Twitch Golf: Cancel Countdown"
 			},
@@ -30,6 +42,14 @@
 			{
 				"command": "twitch-golf.removeSeconds",
 				"title": "Twitch Golf: Remove Seconds"
+			},
+			{
+				"command": "twitch-golf.enableCharacterCount",
+				"title": "Twitch Golf: Enable Character Count"
+			},
+			{
+				"command": "twitch-golf.disableCharacterCount",
+				"title": "Twitch Golf: Disable Character Count"
 			}
 		]
 	},

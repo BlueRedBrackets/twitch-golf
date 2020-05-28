@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
 import { IFeature } from '../feature';
-import { removeAllListeners } from 'cluster';
 
 class Countdown {
+    private static tickCheckFrequency: number = 100;
     private setFor: number;
     private startedAt: number;
+    private pausedAt: number | undefined;
     private lastTickSent: number;
     private tickCheckInterval: NodeJS.Timeout;
 
@@ -13,11 +14,12 @@ class Countdown {
 
     constructor(setFor: number, tickCallback: (secondsLeft: number) => void, endCallback: () => void) {
         this.setFor = setFor;
-        this.startedAt = Date.now();
         this.lastTickSent = this.setFor;
+        this.startedAt = Date.now();
         this.tickCallback = tickCallback;
         this.endCallback = endCallback;
         this.tickCheckInterval = this.setTickCheckInterval();
+        this.tickCallback(this.setFor);
     }
 
     isRunning() {
@@ -25,39 +27,55 @@ class Countdown {
     }
 
     cancel() {
+        this.pausedAt = undefined;
         clearInterval(this.tickCheckInterval);
+    }
+
+    pause() {
+        if (!this.isRunning()) return;
+        clearInterval(this.tickCheckInterval);
+        this.pausedAt = Date.now();
+    }
+
+    resume() {
+        if (this.pausedAt === undefined) return;
+        this.startedAt += Date.now() - this.pausedAt;
+        this.tickCheckInterval = this.setTickCheckInterval();
+        this.pausedAt = undefined
     }
 
     addSeconds(seconds: number) {
         this.startedAt += seconds * 1000;
+        this.lastTickSent += seconds;
         this.tickCheck();
     }
 
     removeSeconds(seconds: number) {
         this.startedAt -= seconds * 1000
+        this.lastTickSent -= seconds;
         this.tickCheck();
     }
 
     reset() {
-        this.cancel();
+        if (!this.tickCheckInterval.hasRef()) return;
+        clearInterval(this.tickCheckInterval);
+        this.pausedAt = undefined;
         this.startedAt = Date.now();
         this.lastTickSent = this.setFor;
         this.tickCheckInterval = this.setTickCheckInterval();
+        this.tickCallback(this.setFor);
     }
 
     private setTickCheckInterval(): NodeJS.Timeout {
-        const tickCheckInterval = setInterval(this.tickCheck.bind(this), 1000)
-        this.tickCallback(this.setFor);
-        return tickCheckInterval;
+        return setInterval(this.tickCheck.bind(this), Countdown.tickCheckFrequency);
     }
 
     private tickCheck() {
-        const now: number = Date.now();
-        const secondsLeft: number = this.setFor - Math.floor((now - this.startedAt) / 1000);
+        const secondsLeft: number = this.setFor - Math.floor((Date.now() - this.startedAt) / 1000);
         if (secondsLeft <= 0) {
-            clearInterval(this.tickCheckInterval);
+            this.cancel();
             this.endCallback();
-        } else {
+        } else if (secondsLeft < this.lastTickSent) {
             this.lastTickSent = secondsLeft;
             this.tickCallback(secondsLeft);
         }
@@ -70,6 +88,9 @@ export class TimerFeature implements IFeature {
 
     installOn(context: vscode.ExtensionContext): void {
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.startCountdown", this.startCountdown.bind(this)));
+        context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.pauseCountdown", () => this.countdown?.pause()));
+        context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.resumeCountdown", () => this.countdown?.resume()));
+        context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.resetCountdown", () => this.countdown?.reset()));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.cancelCountdown", this.cancelCountdown.bind(this)));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.addSeconds", this.addSeconds.bind(this)));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.removeSeconds", this.removeSeconds.bind(this)));

@@ -3,26 +3,31 @@
 All notable changes to the "twitch-golf" extension will be documented in this file.
 
 ## [Unreleased]
-### General
+### Twitch
 - twitch chat feed
 - send message to chat
 ### Code Golf
 - ~~timer~~
     - ~~last lap font~~
     - ~~pause~~
-    - add/remove time
-    - restart
+    - ~~add/remove time~~
+    - ~~restart~~
     - ~~improve accuracy~~
+    - ~~cancel~~
 - ~~character counter~~
-    - ~~needs more hair~~
-    - ~~count each "code block", instead of the whole file~~
-        - refactor this^ garbage
     - don't count comments
 ### Croud Control
 - letter inventory
 - typing test interrupt
 - disable keys
 - black screen while typing
+### Miscellaneous
+- Hide commands when they wouldn't do anything
+
+## 1.0.0 - 2020-05-28
+### Addded
+- Pause/resume/reset countdown
+- Enable/disable character count
 
 ## 0.0.1 - 2020-05-26
 ### Remove
