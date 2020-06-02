@@ -87,7 +87,7 @@ export class TimerFeature implements IFeature {
     private countdownStatusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
 
     installOn(context: vscode.ExtensionContext): void {
-        // context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.startCountdown", this.startCountdown.bind(this)));
+        context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.startCountdown", this.startCountdown.bind(this)));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.pauseCountdown", () => this.countdown?.pause()));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.resumeCountdown", () => this.countdown?.resume()));
         context.subscriptions.push(vscode.commands.registerCommand("twitch-golf.resetCountdown", () => this.countdown?.reset()));
