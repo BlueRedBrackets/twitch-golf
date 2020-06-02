@@ -22,7 +22,7 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - disable keys
 - black screen while typing
 ### Miscellaneous
-- Hide commands when they wouldn't do anything
+- ~~Hide commands when they wouldn't do anything~~ (don't think this is possible)
 
 ## 1.0.0 - 2020-05-28
 ### Addded
