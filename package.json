@@ -6,6 +6,10 @@
 		"url": "https://github.com/blueredbrackets/twitch-golf.git"
 	},
 	"license": "SEE LICENSE IN LICENSE",
+	"galleryBanner": {
+		"color": "#7bacfb"
+	},
+	"icon": "logo.png",
 	"displayName": "twitch-golf",
 	"description": "Provide an enchanced code golf on twitch streamer/viewer experience ",
 	"version": "1.0.1",
