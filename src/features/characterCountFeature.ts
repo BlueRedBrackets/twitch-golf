@@ -1,4 +1,4 @@
-import { IFeature } from '../feature'
+import IFeature from '../feature'
 import * as vscode from 'vscode';
 
 class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
@@ -20,7 +20,7 @@ class CharacterCountCodelensProvider implements vscode.CodeLensProvider {
     }
 }
 
-export class CharacterCountFeature implements IFeature {
+export default class CharacterCountFeature implements IFeature {
     private lensProviders: { [id: string]: vscode.Disposable } = {};
 
     installOn(context: vscode.ExtensionContext): void {

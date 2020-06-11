@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { IFeature } from '../feature';
+import IFeature from '../feature';
 
 class Countdown {
     private static tickCheckFrequency: number = 100;
@@ -82,7 +82,7 @@ class Countdown {
     }
 }
 
-export class TimerFeature implements IFeature {
+export default class TimerFeature implements IFeature {
     private countdown: Countdown | undefined;
     private countdownStatusBarItem: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, Number.MAX_SAFE_INTEGER);
 

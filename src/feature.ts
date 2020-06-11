@@ -1,5 +1,5 @@
 import { ExtensionContext } from "vscode";
 
-export interface IFeature {
+export default interface IFeature {
     installOn(context: ExtensionContext): void
 }
