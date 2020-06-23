@@ -4,25 +4,25 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 
 ## [Unreleased]
 ### Twitch
-- twitch chat feed
+- configurable chat history size
+- render emotes
+- render badges
 - send message to chat
+- programmatically get oauth token
 ### Code Golf
-- ~~timer~~
-    - ~~last lap font~~
-    - ~~pause~~
-    - ~~add/remove time~~
-    - ~~restart~~
-    - ~~improve accuracy~~
-    - ~~cancel~~
-- ~~character counter~~
-    - don't count comments
+- don't count comments in code blocks
 ### Croud Control
 - letter inventory
 - typing test interrupt
 - disable keys
 - black screen while typing
 ### Miscellaneous
-- ~~Hide commands when they wouldn't do anything~~ (don't think this is possible)
+- Prettier, more informative client-facing error messages
+- Refactor twitch integration without tmi.js dependency
+
+## 1.1.0 - 2020-06-23
+### Added
+- Twich chat view
 
 ## 1.0.0 - 2020-05-28
 ### Addded

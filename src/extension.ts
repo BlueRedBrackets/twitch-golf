@@ -3,14 +3,15 @@
 import * as vscode from 'vscode';
 import CharacterCountFeature from './features/characterCountFeature'
 import TimerFeature from './features/timerFeature';
+import TwitchChatFeature from "./features/twitchChatFeature";
 import IFeature from './feature';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-	const features: IFeature[] = [new CharacterCountFeature(), new TimerFeature()]
+export async function activate(context: vscode.ExtensionContext) {
+	const features: IFeature[] = [new CharacterCountFeature(), new TimerFeature(), new TwitchChatFeature()];
 	for (const feature of features) {
-		feature.installOn(context)
+		await feature.installOn(context);
 	}
 }
 

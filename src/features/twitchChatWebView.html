@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .user::after {
+            content: ": ";
+        }
+
+        .user {
+            font-weight: bold;
+        }
+
+        #chat {
+            overflow: scroll;
+            height: calc(100vh - 1rem);
+        }
+    </style>
+    <script>
+        function createMessageElement(event) {
+            const { user, message, userColor } = event.data;
+            const messageDiv = document.createElement("div", {});
+            messageDiv.className = "message"
+            const userSpan = document.createElement("span");
+            userSpan.className = "user"
+            userSpan.style.color = userColor;
+            const messageSpan = document.createElement("span");
+
+            userSpan.innerText = user;
+            messageSpan.innerText = message;
+
+            messageDiv.appendChild(userSpan);
+            messageDiv.appendChild(messageSpan);
+
+            return messageDiv;
+        }
+
+        let messageCount = 0;
+        window.addEventListener('message', event => {
+            const messageDiv = createMessageElement(event);
+            const chat = document.querySelector("#chat");
+            chat.appendChild(messageDiv);
+            if (messageCount > 100) {
+                chat.children[0].remove();
+            } else {
+                messageCount++;
+            }
+            chat.scrollTop = chat.scrollHeight;
+        });
+    </script>
+</head>
+
+<body>
+    <div id="chat"></div>
+    <!-- <iframe frameborder="0" scrolling="no" id="BlueRedBrackets"
+        src="https://www.twitch.tv/embed/hebo/chat?parent=127.0.0.1" height="100%" width="100%">
+    </iframe> -->
+</body>
+
+</html>
