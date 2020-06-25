@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import * as twitch from 'tmi.js';
 import IFeature from "../feature"
-import * as path from 'path'
-import * as fs from 'fs'
+import twitchChatHtml from './twitchChatWebView.html'
 
 
 export default class TwitchChatFeature implements IFeature {
@@ -43,8 +42,7 @@ export default class TwitchChatFeature implements IFeature {
         //chat view
         this.chatOuput = vscode.window.createWebviewPanel('twitch-chat', 'Twitch Chat', vscode.ViewColumn.Beside, { enableScripts: true });
         this.chatOuput.reveal();
-        const filePath: vscode.Uri = vscode.Uri.file(path.join(context.extensionPath, 'src', 'features', 'twitchChatWebView.html'));
-        this.chatOuput.webview.html = fs.readFileSync(filePath.fsPath, 'utf8');
+        this.chatOuput.webview.html = twitchChatHtml;
 
         //chat client
         const client = await this.getClient(botUsername, channel, botOauthToken)
