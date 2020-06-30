@@ -4,6 +4,8 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 
 ## [Unreleased]
 ### Twitch
+- preserve chat history when the panel is repinned
+- define `botOAuthToken` in user settings instead of workspace settings
 - configurable chat history size
 - render emotes
 - render badges
@@ -20,17 +22,23 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - Prettier, more informative client-facing error messages
 - Refactor twitch integration without tmi.js dependency
 
+## 1.1.3 - 2020-06-30
+### Fixed
+- Duplicate chat message bug
+### Updated
+- Twitch client creation error handling
+
 ## 1.1.0 - 2020-06-23
 ### Added
 - Twich chat view
 
 ## 1.0.0 - 2020-05-28
-### Addded
+### Added
 - Pause/resume/reset countdown
 - Enable/disable character count
 
 ## 0.0.1 - 2020-05-26
-### Remove
+### Removed
 - Pause/resume countdown
 ### Added
 - Cancel countdown

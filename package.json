@@ -64,22 +64,13 @@
 			{
 				"command": "twitch-golf.displayTwitchChat",
 				"title": "Twitch Golf: Display Twich Chat"
-			},
-			{
-				"command": "twitch-golf.hideTwitchChat",
-				"title": "Twitch Golf: Hide Twich Chat"
 			}
 		],
 		"configuration": [
 			{
 				"title": "Twitch Chat",
 				"properties": {
-					"twitchGolf.displayTwitchChat": {
-						"type": "boolean",
-						"default": false,
-						"description": "Display twitch chat."
-					},
-					"twitchGolf.botOauthToken": {
+					"twitchGolf.botOAuthToken": {
 						"type": "string",
 						"description": "The twitch bot's oath token."
 					},

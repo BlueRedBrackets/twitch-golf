@@ -1,76 +1,94 @@
 import * as vscode from "vscode";
-import * as twitch from 'tmi.js';
-import IFeature from "../feature"
-import twitchChatHtml from './twitchChatWebView.html'
-
+import * as twitch from "tmi.js";
+import IFeature from "../feature";
+import twitchChatHtml from "./twitchChatWebView.html";
 
 export default class TwitchChatFeature implements IFeature {
-    private _client: twitch.Client | undefined;
-    private chatOuput: vscode.WebviewPanel | undefined;
+  private _client: twitch.Client | undefined;
+  private chatOuput: vscode.WebviewPanel | undefined;
 
-    private async getClient(username: string, channel: string, token: string): Promise<twitch.Client> {
-        if (!this._client === undefined || this._client?.readyState() !== 'OPEN') {
-            this._client = twitch.client({
-                identity: {
-                    username: username,
-                    password: token
-                },
-                channels: [channel]
-            });
-            await this._client.connect();
-        }
-        return this._client;
+  private async getClient(
+    username: string,
+    channel: string,
+    token: string
+  ): Promise<twitch.Client> {
+    if (!this._client === undefined || this._client?.readyState() !== "OPEN") {
+      this._client = twitch.client({
+        identity: {
+          username: username,
+          password: token,
+        },
+        channels: [channel],
+      });
+      await this._client.connect();
+    }
+    return this._client;
+  }
+
+  private async displayTwitchChat(context: vscode.ExtensionContext) {
+    const config = vscode.workspace.getConfiguration("twitchGolf");
+    let botOAuthToken: string | undefined = config.get("botOAuthToken");
+    let botUsername: string | undefined = config.get("botUsername");
+    let channel: string | undefined = config.get("channel");
+
+    if (!botUsername) {
+      botUsername = await vscode.window.showInputBox({
+        ignoreFocusOut: true,
+        placeHolder: "Type your twitch bot username."
+      });
+      if (!botUsername) {throw Error("Invalid twitch bot username provided.");}
+      config.update("botUsername", botUsername, true);
     }
 
-    private async displayTwitchChat(context: vscode.ExtensionContext) {
-        const config = vscode.workspace.getConfiguration('twitchGolf');
-        let botOauthToken: string | undefined = config.get('botOauthToken');
-        const botUsername: string | undefined = config.get('botUsername');
-        const channel: string | undefined = config.get('channel');
-
-        if (!botUsername) throw Error("botUsername setting is not defined.ks");
-        if (!channel) throw Error("channel setting is not defined.ks");
-        if (!botOauthToken) {
-            await vscode.env.openExternal(vscode.Uri.parse("https://twitchapps.com/tmi/"));
-            botOauthToken = await vscode.window.showInputBox({
-                ignoreFocusOut: true
-            });
-            if (!botOauthToken) throw Error("invalid OAuth token provided.");
-            config.update('botOauthToken', botOauthToken);
-        }
-
-        //chat view
-        this.chatOuput = vscode.window.createWebviewPanel('twitch-chat', 'Twitch Chat', vscode.ViewColumn.Beside, { enableScripts: true });
-        this.chatOuput.reveal();
-        this.chatOuput.webview.html = twitchChatHtml;
-
-        //chat client
-        const client = await this.getClient(botUsername, channel, botOauthToken)
-        client.on('message', (target, context, message, isMe) => {
-            this.chatOuput?.webview.postMessage({
-                user: context["display-name"],
-                userColor: context.color,
-                message: message
-            });
-        });
-
-        config.update('enableTwitchChat', true);
+    if (!channel) {
+      channel = await vscode.window.showInputBox({
+        ignoreFocusOut: true,
+        placeHolder: "Type your twitch channel.",
+      });
+      if (!channel) {throw Error("Invalid channel provided.");}
+      config.update("channel", channel, true);
     }
 
-    private hideTwitchChat() {
-        this.chatOuput?.dispose();
-        this._client?.disconnect();
+    if (!botOAuthToken) {
+      await vscode.env.openExternal(
+        vscode.Uri.parse("https://twitchapps.com/tmi/")
+      );
+      botOAuthToken = await vscode.window.showInputBox({
+        ignoreFocusOut: true,
+        placeHolder: "Type your twitch bot OAuth token",
+      });
+      if (!botOAuthToken) {throw Error("Invalid OAuth token provided.");}
+      config.update("botOAuthToken", botOAuthToken, true);
     }
 
-    async installOn(context: vscode.ExtensionContext): Promise<void> {
-        vscode.commands.registerCommand("twitch-golf.displayTwitchChat", async () => {
-            await this.displayTwitchChat(context);
-        });
-        vscode.commands.registerCommand("twitch-golf.hideTwitchChat", this.hideTwitchChat.bind(this));
+    //chat view
+    this.chatOuput = vscode.window.createWebviewPanel(
+      "twitch-chat",
+      "Twitch Chat",
+      vscode.ViewColumn.Beside,
+      { enableScripts: true }
+    );
+    this.chatOuput.reveal();
+    this.chatOuput.webview.html = twitchChatHtml;
+    this.chatOuput.onDidDispose(() => this._client?.disconnect());
 
-        const config = vscode.workspace.getConfiguration("twitchGolf");
-        if (config.get('displayTwitchChat')) {
-            await this.displayTwitchChat(context);
-        }
-    }
+    //chat client
+    const client = await this.getClient(botUsername, channel, botOAuthToken);
+    client.on("message", (target, context, message, isMe) => {
+      this.chatOuput?.webview.postMessage({
+        user: context["display-name"],
+        userColor: context.color,
+        message: message,
+      });
+    });
+  }
+
+  async installOn(context: vscode.ExtensionContext): Promise<void> {
+    vscode.commands.registerCommand(
+      "twitch-golf.displayTwitchChat",
+      async () => {
+        await this.displayTwitchChat(context);
+      }
+    );
+  }
 }
