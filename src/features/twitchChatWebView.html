@@ -3,12 +3,18 @@
 
 <head>
     <style>
-        .user::after {
-            content: ": ";
-        }
-
         .user {
             font-weight: bold;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        img {
+            padding: 0 0.1rem;
         }
 
         #chat {
@@ -17,30 +23,34 @@
         }
     </style>
     <script>
-        function createMessageElement(event) {
+        function createChatElement(event) {
             const { user, message, userColor } = event.data;
-            const messageDiv = document.createElement("div", {});
-            messageDiv.className = "message"
-            const userSpan = document.createElement("span");
-            userSpan.className = "user"
-            userSpan.style.color = userColor;
-            const messageSpan = document.createElement("span");
+            const chatElement = document.createElement("div");
+            chatElement.className = "center";
+            const spaceElement = document.createElement("div");
+            spaceElement.innerHTML = ":&nbsp"
+            const userElement = document.createElement("div");
+            userElement.className = "user";
+            userElement.style.color = userColor;
+            const messageElement = document.createElement("div");
+            messageElement.className = "center";
 
-            userSpan.innerText = user;
-            messageSpan.innerText = message;
+            userElement.innerText = user;
+            messageElement.innerHTML = message;
 
-            messageDiv.appendChild(userSpan);
-            messageDiv.appendChild(messageSpan);
+            chatElement.appendChild(userElement);
+            chatElement.appendChild(spaceElement);
+            chatElement.appendChild(messageElement);
 
-            return messageDiv;
+            return chatElement;
         }
 
         let messageCount = 0;
         window.addEventListener('message', event => {
-            const messageDiv = createMessageElement(event);
+            const chatElement = createChatElement(event);
             const chat = document.querySelector("#chat");
-            chat.appendChild(messageDiv);
-            if (messageCount > 100) {
+            chat.appendChild(chatElement);
+            if (chatElement > 100) {
                 chat.children[0].remove();
             } else {
                 messageCount++;
@@ -52,9 +62,6 @@
 
 <body>
     <div id="chat"></div>
-    <!-- <iframe frameborder="0" scrolling="no" id="BlueRedBrackets"
-        src="https://www.twitch.tv/embed/hebo/chat?parent=127.0.0.1" height="100%" width="100%">
-    </iframe> -->
 </body>
 
 </html>

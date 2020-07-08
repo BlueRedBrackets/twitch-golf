@@ -7,7 +7,7 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 - preserve chat history when the panel is repinned
 - define `botOAuthToken` in user settings instead of workspace settings
 - configurable chat history size
-- render emotes
+- --render emotes--
 - render badges
 - send message to chat
 - programmatically get oauth token
@@ -21,6 +21,11 @@ All notable changes to the "twitch-golf" extension will be documented in this fi
 ### Miscellaneous
 - Prettier, more informative client-facing error messages
 - Refactor twitch integration without tmi.js dependency
+- Remove phantom chat panel
+
+## 1.1.4 - 2020-07-07
+## Added
+- Emote rendering
 
 ## 1.1.3 - 2020-06-30
 ### Fixed
