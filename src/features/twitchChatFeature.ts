@@ -19,6 +19,8 @@ export default class TwitchChatFeature implements IFeature {
                     password: token,
                 },
                 channels: [channel],
+                //@ts-ignore
+                reconnect: true
             });
             await this.client.connect();
         }
